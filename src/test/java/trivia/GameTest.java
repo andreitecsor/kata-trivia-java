@@ -3,6 +3,9 @@ package trivia;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import trivia.game.mechanics.Game;
+import trivia.game.mechanics.GameBetter;
+import trivia.game.mechanics.IGame;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -51,9 +54,9 @@ public class GameTest {
 				aGame.roll(rand.nextInt(5) + 1);
 
 				if (rand.nextInt(9) == 7) {
-					notAWinner = aGame.wrongAnswer();
+					notAWinner = aGame.isWrongAnswer();
 				} else {
-					notAWinner = aGame.wasCorrectlyAnswered();
+					notAWinner = aGame.isRightAnswer();
 				}
 
 			} while (notAWinner);

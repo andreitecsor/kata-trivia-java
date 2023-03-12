@@ -1,4 +1,7 @@
-package trivia;
+package trivia.game;
+
+import trivia.game.mechanics.Game;
+import trivia.game.mechanics.IGame;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -36,9 +39,9 @@ public class PlayGame {
          System.out.print(">> Was the answer correct? [y/n] ");
          boolean correct = readYesNo();
          if (correct) {
-            notAWinner = aGame.wasCorrectlyAnswered();
+            notAWinner = aGame.isRightAnswer();
          } else {
-            notAWinner = aGame.wrongAnswer();
+            notAWinner = aGame.isWrongAnswer();
          }
 
       } while (notAWinner);
