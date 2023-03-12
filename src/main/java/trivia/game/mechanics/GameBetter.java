@@ -12,6 +12,7 @@ import static trivia.game.util.MathUtil.isEven;
 public class GameBetter implements IGame {
     private static final int BOARD_LENGTH = 12;
     private static final int WINNING_SCORE = 6;
+    public static final int NUMBER_OF_CARDS = 50;
 
     private List<Player> players = new ArrayList<>();
     private Map<Category, Deque<String>> questionDecks = new EnumMap<>(Category.class);
@@ -26,7 +27,7 @@ public class GameBetter implements IGame {
             Deque<String> questions = new ArrayDeque<>();
 
             String pattern = category + " Question {0}";
-            for (var i = 0; i < 50; i++) {
+            for (int i = 0; i < NUMBER_OF_CARDS; i++) {
                 questions.add(MessageFormat.format(pattern, i));
             }
 
