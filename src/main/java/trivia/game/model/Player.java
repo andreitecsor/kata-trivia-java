@@ -15,17 +15,6 @@ public class Player {
 
     public void advance(int roll) {
         int newLocation = location + roll;
-//        if (newLocation == GameBetter.BOARD_LENGTH) {
-//            // eg. 12 => 12
-//            this.location = GameBetter.BOARD_LENGTH;
-//        } else {
-//            // eg. 11 % 12 => 11;
-//            // eg. 13 % 12 => 1;
-//            this.location = newLocation % GameBetter.BOARD_LENGTH;
-//        }
-
-//        location = 1 + (newLocation - 1) % GameBetter.BOARD_LENGTH;
-
         location = (newLocation) % GameBetter.BOARD_LENGTH;
     }
 
@@ -49,19 +38,11 @@ public class Player {
         return this.inPenaltyBox;
     }
 
-    public void setCoins(int coins) {
-        this.coins = coins;
-    }
-
-    public void setLocation(int location) {
-        this.location = location;
-    }
-
     public void setInPenaltyBox(boolean inPenaltyBox) {
         this.inPenaltyBox = inPenaltyBox;
     }
 
-
+    @Override
     public String toString() {
         return "Player(name=" + this.getName() + ", purse=" + this.getCoins() + ", location=" + this.getLocation() + ", inPenaltyBox=" + this.isInPenaltyBox() + ")";
     }

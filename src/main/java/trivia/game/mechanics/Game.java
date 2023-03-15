@@ -117,7 +117,7 @@ public class Game implements IGame {
         return "Rock";
     }
 
-    public boolean isRightAnswer() {
+    public boolean increaseScore() {
         if (inPenaltyBox[currentPlayer]) {
             if (isGettingOutOfPenaltyBox) {
                 System.out.println("Answer was correct!!!!");
@@ -156,7 +156,7 @@ public class Game implements IGame {
         }
     }
 
-    public boolean isWrongAnswer() {
+    public boolean isInPenaltyBox() {
         System.out.println("Question was incorrectly answered");
         System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
         inPenaltyBox[currentPlayer] = true;

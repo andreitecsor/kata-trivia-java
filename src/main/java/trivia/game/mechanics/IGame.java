@@ -1,11 +1,11 @@
 package trivia.game.mechanics;
 
 public interface IGame {
-	void add(String playerName);
+    void add(String playerName);
 
-	void roll(int roll);
+    void roll(int roll);
 
-	boolean isRightAnswer();
+    boolean increaseScore();
 
-	boolean isWrongAnswer();
+    boolean isInPenaltyBox();
 }

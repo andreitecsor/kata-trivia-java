@@ -3,7 +3,6 @@ package trivia.game.mechanics;
 import trivia.game.model.Category;
 import trivia.game.model.Player;
 
-import java.text.MessageFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -12,9 +11,8 @@ import static trivia.game.model.Category.getCategory;
 
 public class GameBetter implements IGame {
     public static final int BOARD_LENGTH = 12;
-    private static final int WINNING_SCORE = 6;
     public static final int NUMBER_OF_CARDS = 50;
-
+    private static final int WINNING_SCORE = 6;
     private final List<Player> players = new ArrayList<>();
     private final Map<Category, Deque<String>> questionDecks = new EnumMap<>(Category.class);
     private int currentPlayerIndex;
@@ -30,9 +28,8 @@ public class GameBetter implements IGame {
     private void prepareQuestionDecks() {
         for (Category category : Category.values()) {
             Deque<String> questions = IntStream.range(0, NUMBER_OF_CARDS)
-                    .mapToObj(i -> MessageFormat.format(category + " Question {0}", i))
+                    .mapToObj(i -> String.format("%s Question %d", category, i))
                     .collect(Collectors.toCollection(ArrayDeque::new));
-
             questionDecks.put(category, questions);
         }
     }
@@ -40,7 +37,6 @@ public class GameBetter implements IGame {
     @Override
     public void add(String playerName) {
         players.add(new Player(playerName));
-
         System.out.println(playerName + " was added");
         System.out.println("They are player number " + players.size());
     }
@@ -48,16 +44,12 @@ public class GameBetter implements IGame {
     @Override
     public void roll(int roll) {
         Player player = players.get(currentPlayerIndex);
-
         System.out.println(player.getName() + " is the current player");
         System.out.println("They have rolled a " + roll);
-
         if (remainsInPenaltyBox(player, roll)) {
             return;
         }
-
         updateLocation(player, roll);
-
         readQuestion(player.getLocation());
     }
 
@@ -68,14 +60,13 @@ public class GameBetter implements IGame {
     }
 
     private void updateLocation(Player player, int roll) {
-
         player.advance(roll);
         System.out.println(player.getName() + "'s new location is " + player.getLocation());
     }
 
     private boolean remainsInPenaltyBox(Player player, int roll) {
         if (player.isInPenaltyBox()) {
-            if (isOdd(roll)) { // TODO victorrentea 2023-03-14: bun, explicativ, dar as fi tinut metoda aia local
+            if (isOdd(roll)) {
                 System.out.println(player.getName() + " is getting out of the penalty box");
                 player.setInPenaltyBox(false);
             } else {
@@ -86,34 +77,26 @@ public class GameBetter implements IGame {
         return false;
     }
 
-
-    //    public void handleCorrectAnswer() { ... player.addCoin();} // COMMAND
-//    public boolean canGameContinue() {return player.getCoins() < WINNING_SCORE; } // COMMAND
     @Override
-    public boolean isRightAnswer() { // TODO victorrentea 2023-03-14: numele nu reflecta ce intoarce de fapt
+    public boolean increaseScore() {
         Player player = players.get(currentPlayerIndex);
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-
         if (player.isInPenaltyBox()) {
             return true;
         }
-
         System.out.println("Answer was correct!!!!");
         player.addCoin();
         System.out.println(player.getName() + " now has " + player.getCoins() + " Gold Coins.");
-
         return player.getCoins() < WINNING_SCORE;
 
     }
 
     @Override
-    public boolean isWrongAnswer() {
+    public boolean isInPenaltyBox() {
         Player player = players.get(currentPlayerIndex);
-
         System.out.println("Question was incorrectly answered");
         System.out.println(player.getName() + " was sent to the penalty box");
         player.setInPenaltyBox(true);
-
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
         return true;
     }
