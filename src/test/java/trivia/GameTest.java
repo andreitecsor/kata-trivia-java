@@ -29,8 +29,8 @@ public class GameTest {
 		}
 		String actualOutput = extractOutput(new Random(seed), new GameBetter());
 		assertEquals("Change detected for seed " + seed +
-						 ". To breakpoint through it, run this seed alone using the (ignored) test below",
-			expectedOutput, actualOutput);
+						". To breakpoint through it, run this seed alone using the (ignored) test below",
+				expectedOutput, actualOutput);
 	}
 	@Test
 	@Ignore("enable back and set a particular seed to see the output")
